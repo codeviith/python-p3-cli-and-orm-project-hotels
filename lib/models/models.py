@@ -10,15 +10,6 @@ class Hotel:
         self.name = name
         self.reviews = []
 
-    @property
-    def id(self):
-        return self._id
-    
-    @id.setter
-    def id(self, id_parameter):
-        if (not hasattr(self, 'id')) or (self.id == None):
-            self._id = id_parameter
-
     def __repr__(self):
         return f'Hotel # {self.id}: {self.name}'
 
@@ -117,7 +108,7 @@ class Hotel:
 
         # Delete the associated reviews from the database and remove the associated review instances from Review.all
         # The idea here is that there should not exist reviews for a hotel that no longer exists
-        for review in Review.all:
+        for review in self.reviews:
             if review.hotel_id == self.id:
                 review.delete()
 
@@ -132,15 +123,6 @@ class Review:
         self.hotel = Hotel.find_by_id(hotel_id)
         self.hotel.reviews.append(self)
         self.rating = rating
-
-    @property
-    def id(self):
-        return self._id
-    
-    @id.setter
-    def id(self, id_parameter):
-        if (not hasattr(self, 'id')) or (self.id == None):
-            self._id = id_parameter
 
     @property
     def hotel(self):
