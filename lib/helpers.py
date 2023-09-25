@@ -1,9 +1,12 @@
 # lib/helpers.py
 
-from models.hotel import Hotel
+from models.models import Hotel, Review
 
-def initialize_hotel_instances():
+def initialize():
+    Hotel.create_table()
     Hotel.get_all()
+    Review.create_table()
+    Review.get_all()
 
 def create_hotel():
     print("Enter the name for your new hotel:")
@@ -18,10 +21,13 @@ def create_hotel():
     keyboard_input = input("* Press any key and then press 'return' to continue *\n")
 
 def get_all_hotels():
-    for hotel in Hotel.all:
-        print(hotel)
-    print("Successfully retrieved all hotel data!")
-    keyboard_input = input("* Press any key and then press 'return' to continue *\n")
+    if len(Hotel.all) == 0:
+        print("Error: There are no hotels in the database!")
+    else:
+        for hotel in Hotel.all:
+            print(hotel)
+        print("Successfully retrieved all hotel data!")
+        keyboard_input = input("* Press any key and then press 'return' to continue *\n")
 
 def get_hotel_by_id():
     if len(Hotel.all) == 0:
@@ -61,12 +67,22 @@ def delete_hotel():
 def search_by_id(word):
     print(f"Enter the id for the hotel you want to {word}:")
     id = input("> ")
-    hotel = Hotel.find_by_id(id)
+    
+    if id.isdigit():
+        hotel = Hotel.find_by_id(int(id))
+    else:
+        hotel = None
+    
     while not hotel:
         print("Error: Hotel not found!")
         print(f"Enter the id for the hotel you want to {word}:")
         id = input("> ")
-        hotel = Hotel.find_by_id(id)
+
+        if id.isdigit():
+            hotel = Hotel.find_by_id(int(id))
+        else:
+            hotel = None
+
     return hotel
 
 def exit_program():

@@ -3,7 +3,7 @@
 
 from helpers import (
     exit_program,
-    initialize_hotel_instances,
+    initialize,
     create_hotel,
     get_all_hotels,
     get_hotel_by_id,
@@ -43,5 +43,5 @@ def menu():
 
 
 if __name__ == "__main__":
-    initialize_hotel_instances()
+    initialize()
     main()
