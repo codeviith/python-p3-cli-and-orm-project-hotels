@@ -112,7 +112,14 @@ class Hotel:
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
         
-        Hotel.all = list(filter(lambda h: h.id != self.id, Hotel.all))
+        # Remove the hotel instance from Hotel.all
+        Hotel.all = [hotel for hotel in Hotel.all if hotel.id != self.id]
+
+        # Delete the associated reviews from the database and remove the associated review instances from Review.all
+        # The idea here is that there should not exist reviews for a hotel that no longer exists
+        for review in Review.all:
+            if review.hotel_id == self.id:
+                review.delete()
 
 # Review model
 class Review:
