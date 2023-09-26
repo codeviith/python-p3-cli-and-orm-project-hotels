@@ -34,7 +34,16 @@ def get_hotel_by_id():
         print("Error: There are no hotels in the database!")
     else:
         hotel = search_by_id('find')
+        print()
         print(hotel)
+        print()
+        if len(hotel.reviews) > 0:
+            print("Here are the reviews for this hotel:")
+            for review in hotel.reviews:
+                print(review)
+        else:
+            print("This hotel has no reviews.")
+        print()
         print("Successfully retrieved hotel data!")
         keyboard_input = input("* Press any key and then press 'return' to continue *\n")
 

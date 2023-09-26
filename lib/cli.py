@@ -37,7 +37,7 @@ def menu():
     print("0 - Exit the program")
     print("C - Create a new hotel")
     print("R - Get all hotel info")
-    print("R1 - Get info for 1 hotel")
+    print("R1 - Get info for 1 hotel and its reviews")
     print("U - Update a hotel")
     print("D - Delete a hotel")
 
